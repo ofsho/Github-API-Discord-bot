@@ -78,23 +78,28 @@ def releaseInfo(message):
     except:
         pass
 
-    releases = api.repos.list_releases(owner=repo_owner, repo=repo_name, per_page=1)
+    try:
+        releases = api.repos.list_releases(owner=repo_owner, repo=repo_name, per_page=1)
 
-    # check if any releases
-    if len(releases) == 0:
-        embed = discord.Embed(title=repo_name.title() + ' ' + tag_name + ' Info', color=colors['red'])
-        embed.add_field(name='Error', value='No releases found')
-    else:
-        # release embed
-        embed = discord.Embed(title=repo_name.title() + ' ' + tag_name + ' Info', color=colors['green'])
+        # check if any releases
+        if len(releases) == 0:
+            embed = discord.Embed(title=repo_name.title() + ' ' + tag_name + ' Info', color=colors['red'])
+            embed.add_field(name='Error', value='No releases found')
+        else:
+            # release embed
+            embed = discord.Embed(title=repo_name.title() + ' ' + tag_name + ' Info', color=colors['green'])
 
-        for release in releases:
-            if tag_name == release['tag_name'] and tag_name != "":
-                release_info_block(release, embed)
-            elif tag_name == "":
-                release_info_block(release, embed)
-    
-    return embed
+            for release in releases:
+                if tag_name == release['tag_name'] and tag_name != "":
+                    release_info_block(release, embed)
+                elif tag_name == "":
+                    release_info_block(release, embed)
+        
+        return embed
+    except:
+        embed = discord.Embed(title=repo_name.title() + ' Releases', color=colors['red'])
+        embed.add_field(name='Error', value='Release not found')
+        return embed
 
 def release_info_block(release, embed):
     embed.add_field(name="Release Date", value=str(release['published_at']))
