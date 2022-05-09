@@ -7,6 +7,9 @@ from api.gr import gr
 from api.commit import commit
 from api.repo import repo
 from api.lcont import lcont
+from api.ldep import ldep
+from api.getforks import getforks
+from api.getlangs import getlangs
 
 client = discord.Client()
 api = GhApi()
@@ -26,6 +29,8 @@ async def on_message(message):
         embed.add_field(name='commit __owner__ __name__ (optional: __sha__ __branch__)', value='Last Commit in repo', inline=False)
         embed.add_field(name='repo __owner__ __name__', value="Sends Repo Information", inline=False)
         embed.add_field(name='lcont __owner__ __name__', value="List of contributors for a repo", inline=False)
+        embed.add_field(name='ldep __owner__ __name__', value="List of deployments of a repo", inline=False)
+        embed.add_field(name='getforks __owner__ __name__', value="List of forks of a repo", inline=False)
 
         await message.channel.send(embed=embed)
 
@@ -40,3 +45,12 @@ async def on_message(message):
 
     elif message.content.startswith('!gh lcont'):
         await message.channel.send(embed=lcont(message))
+
+    elif message.content.startswith('!gh ldep'):
+        await message.channel.send(embed=ldep(message))
+
+    elif message.content.startswith('!gh getforks'):
+        await message.channel.send(embed=getforks(message))
+
+    elif message.content.startswith('!gh getlangs'):
+        await message.channel.send(embed=getlangs(message))
