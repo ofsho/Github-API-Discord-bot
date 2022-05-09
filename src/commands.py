@@ -10,6 +10,7 @@ from api.lcont import lcont
 from api.ldep import ldep
 from api.getforks import getforks
 from api.getlangs import getlangs
+from api.releases import releases, releaseBody, releaseInfo
 
 client = discord.Client()
 api = GhApi()
@@ -31,6 +32,9 @@ async def on_message(message):
         embed.add_field(name='lcont __owner__ __name__', value="List of contributors for a repo", inline=False)
         embed.add_field(name='ldep __owner__ __name__', value="List of deployments of a repo", inline=False)
         embed.add_field(name='getforks __owner__ __name__', value="List of forks of a repo", inline=False)
+        embed.add_field(name='releases __owner__ __name__', value="Get all releases from repo", inline=False)
+        embed.add_field(name='reldesc __owner__ __name__ (optional: __tag-name__)', value="Get body from release", inline=False)
+        embed.add_field(name='relinfo __owner__ __name__ (optional: __tag-name__)', value="Get ifno of release", inline=False)
 
         await message.channel.send(embed=embed)
 
@@ -54,3 +58,12 @@ async def on_message(message):
 
     elif message.content.startswith('!gh getlangs'):
         await message.channel.send(embed=getlangs(message))
+
+    elif message.content.startswith('!gh releases'):
+        await message.channel.send(embed=releases(message))
+
+    elif message.content.startswith('!gh reldesc'):
+        await message.channel.send(embed=releaseBody(message))
+
+    elif message.content.startswith('!gh relinfo'):
+        await message.channel.send(embed=releaseInfo(message))

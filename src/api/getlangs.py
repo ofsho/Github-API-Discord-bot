@@ -1,7 +1,7 @@
 import discord
 from ghapi.all import GhApi
 
-from defaults import colors
+from defaults import colors, webify
 
 api = GhApi()
 
@@ -25,7 +25,8 @@ def getlangs(message):
         # check percentage
         for lang in langs:
             lang_percentage = (int(lang.split('/')[1]) / total) * 100
-            embed.add_field(name=lang.split('/')[0], value=str("%.2f" % lang_percentage) + '%')
+            embed.add_field(name=lang.split('/')[0], value='['+str("%.2f" % lang_percentage)
+                +'](https://github.com/'+repo_owner+'/'+repo_name+'/search?l='+webify(lang.split('/')[0])+')' + '%')
 
         return embed
     except:
