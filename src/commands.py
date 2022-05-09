@@ -5,6 +5,8 @@ from defaults import colors
 
 from api.gr import gr
 from api.commit import commit
+from api.repo import repo
+from api.lcont import lcont
 
 client = discord.Client()
 api = GhApi()
@@ -23,11 +25,18 @@ async def on_message(message):
         embed.add_field(name='gr __owner__ __name__ (optional: __branch__)', value='Get Repo Url', inline=False)
         embed.add_field(name='commit __owner__ __name__ (optional: __sha__ __branch__)', value='Last Commit in repo', inline=False)
         embed.add_field(name='repo __owner__ __name__', value="Sends Repo Information", inline=False)
+        embed.add_field(name='lcont __owner__ __name__', value="List of contributors for a repo", inline=False)
 
         await message.channel.send(embed=embed)
 
     if message.content.startswith('!gh gr'):
         await message.channel.send(embed=gr(message))
 
-    if message.content.startswith('!gh commit'):
+    elif message.content.startswith('!gh commit'):
         await message.channel.send(embed=commit(message))
+
+    elif message.content.startswith('!gh repo'):
+        await message.channel.send(embed=repo(message))
+
+    elif message.content.startswith('!gh lcont'):
+        await message.channel.send(embed=lcont(message))

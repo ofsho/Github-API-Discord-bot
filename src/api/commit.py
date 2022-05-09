@@ -28,10 +28,10 @@ def commit(message):
     commit = api.git.get_commit(owner=repo_owner, repo=repo_name, commit_sha=sha)
 
     # commit embed
-    embed = discord.Embed(title=repo_name.title() + ' Repo URL', color=colors['pink'])
+    embed = discord.Embed(title='Commit Info', color=colors['pink'])
     embed.add_field(name='Sha', value=repo['object']['sha'])
-    embed.add_field(name='URL', value=commit['html_url'])
-    embed.add_field(name='URL Ref', value=repo['object']['url'])
+    embed.add_field(name='URL', value="[Website URL]("+commit['html_url']+")")
+    embed.add_field(name='URL Ref', value="[Ref API URL]("+repo['object']['url']+")")
     embed.add_field(name="Committer", value=commit['committer']['name'])
     embed.add_field(name="Message", value=commit['message'])
 

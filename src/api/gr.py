@@ -18,8 +18,8 @@ def gr(message):
         repo = api.git.get_ref(owner=repo_owner, repo=repo_name, ref='heads/' + branch)
 
         embed = discord.Embed(title=repo_name.title() + ' Repo URL', color=colors['blue'])
-        embed.add_field(name='URL', value='https://github.com/' + repo_owner + '/' + repo_name)
-        embed.add_field(name='Ref URL', value=repo['url'])
+        embed.add_field(name='URL', value="[Website URL]('https://github.com/'" + repo_owner + '/' + repo_name + ")")
+        embed.add_field(name='Ref URL', value="[Ref API URL]("+repo['url']+")")
 
         return embed
     except:
